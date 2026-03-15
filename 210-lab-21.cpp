@@ -6,31 +6,32 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList
 {
-private:
+public: // Allows creation of Goat objects while keeping their members private to Goat class.
     class Goat
     { // Replace node struct with Goat class.
         int age;
         string name;
         string color;
-        string names[15] {"Billy", "Nanny", "Gruff",
-             "Daisy", "Charlie", "Luna", "Max", "Bella",
-             "Rocky", "Molly", "Jack", "Lucy", "Toby", "Sophie", "Oscar"};
-        string colors[15] {"White", "Black", "Brown", "Gray", "Spotted",
-             "Striped", "Golden", "Cream", "Red", "Blue",
-             "Green", "Yellow", "Purple", "Pink", "Orange"};
-        public: // Public members of the Goat class. Allows 
+        string names[15]{"Billy", "Nanny", "Gruff",
+                         "Daisy", "Charlie", "Luna", "Max", "Bella",
+                         "Rocky", "Molly", "Jack", "Lucy", "Toby", "Sophie", "Oscar"};
+        string colors[15]{"White", "Black", "Brown", "Gray", "Spotted",
+                          "Striped", "Golden", "Cream", "Red", "Blue",
+                          "Green", "Yellow", "Purple", "Pink", "Orange"};
+
+    public:         // Public members of the Goat class. Allows
         Goat *prev; // Previous pointer
         Goat *next; // Next pointer
         Goat(Goat *p = nullptr, Goat *n = nullptr)
-        { // Default constructor to initialize a Goat with random attributes.
-            age = rand() % 20 + 1; // Random age between 1 and 20.
-            name = names[rand() % 15]; // Random name from the list.
+        {                                // Default constructor to initialize a Goat with random attributes.
+            age = rand() % 20 + 1;       // Random age between 1 and 20.
+            name = names[rand() % 15];   // Random name from the list.
             color = colors[rand() % 15]; // Random color from the list.
             prev = p;
             next = n;
         }
         Goat(int a, string n, string c, Goat *p = nullptr, Goat *nxt = nullptr)
-        {// Parameter constructor to initialize a Goat with specific attributes.
+        { // Parameter constructor to initialize a Goat with specific attributes.
             age = a;
             name = n;
             color = c;
@@ -53,7 +54,7 @@ public:
         head = nullptr;
         tail = nullptr;
     }
-// Replacing all functions with versions that handle Goat objects instead of integers.
+    // Replacing all functions with versions that handle Goat objects instead of integers.
     void push_back(Goat g)
     {
         Goat *newGoat = new Goat(g);
@@ -79,83 +80,86 @@ public:
             head = newGoat;
         }
     }
-/* [NOT USED IN PROGRAM]
-    void insert_after(Goat g, int position) // [NOT USED IN PROGRAM]
-    {
-        if (position < 0) // Validates the position input to ensure it's non-negative.
+    /* [NOT USED IN PROGRAM]
+        void insert_after(Goat g, int position) // [NOT USED IN PROGRAM]
         {
-            cout << "Position must be >= 0." << endl;
-            return;
+            if (position < 0) // Validates the position input to ensure it's non-negative.
+            {
+                cout << "Position must be >= 0." << endl;
+                return;
+            }
+
+            Goat *newGoat = new Goat(g);
+            if (!head)
+            {
+                head = tail = newGoat;
+                return;
+            }
+
+            Goat *temp = head;
+            for (int i = 0; i < position && temp; ++i) // Traverses the list to find the node after which the new node will be inserted.
+                temp = temp->next;
+
+            if (!temp) // If position exceeds list size, insert at the end.
+            {
+                cout << "Position exceeds list size. Node not inserted.\n";
+                delete newGoat;
+                return;
+            }
+
+            newGoat->next = temp->next;
+            newGoat->prev = temp;
+            if (temp->next) // If there's a node after temp, update its prev pointer to the new node.
+                temp->next->prev = newGoat;
+            else // If temp is the tail, update the tail pointer to the new node.
+                tail = newGoat; // Inserting at the end.
+            temp->next = newGoat;
         }
 
-        Goat *newGoat = new Goat(g);
-        if (!head)
+        void delete_node(int value)
         {
-            head = tail = newGoat;
-            return;
+            if (!head)
+                return; // Empty list
+
+            Goat *temp = head;
+            while (temp && temp->data != value)
+                temp = temp->next;
+
+            if (!temp)
+                return; // Value not found
+
+            if (temp->prev)
+            {
+                temp->prev->next = temp->next;
+            }
+            else
+            {
+                head = temp->next; // Deleting the head
+            }
+
+            if (temp->next)
+            {
+                temp->next->prev = temp->prev;
+            }
+            else
+            {
+                tail = temp->prev; // Deleting the tail
+            }
+
+            delete temp;
         }
-
-        Goat *temp = head;
-        for (int i = 0; i < position && temp; ++i) // Traverses the list to find the node after which the new node will be inserted.
-            temp = temp->next;
-
-        if (!temp) // If position exceeds list size, insert at the end.
-        {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newGoat;
-            return;
-        }
-
-        newGoat->next = temp->next;
-        newGoat->prev = temp;
-        if (temp->next) // If there's a node after temp, update its prev pointer to the new node.
-            temp->next->prev = newGoat;
-        else // If temp is the tail, update the tail pointer to the new node.
-            tail = newGoat; // Inserting at the end.
-        temp->next = newGoat;
-    }
-
-    void delete_node(int value)
-    {
-        if (!head)
-            return; // Empty list
-
-        Goat *temp = head;
-        while (temp && temp->data != value)
-            temp = temp->next;
-
-        if (!temp)
-            return; // Value not found
-
-        if (temp->prev)
-        {
-            temp->prev->next = temp->next;
-        }
-        else
-        {
-            head = temp->next; // Deleting the head
-        }
-
-        if (temp->next)
-        {
-            temp->next->prev = temp->prev;
-        }
-        else
-        {
-            tail = temp->prev; // Deleting the tail
-        }
-
-        delete temp;
-    }
-*/
+    */
     void print() // Traverses the list from head to tail, printing the data of each goat.
     {
         Goat *current = head;
         if (!current)
+        {
+            cout << "List is empty.\n";
             return;
+        }
         while (current) // Traverses the list from head to tail, printing the data of each node.
         {
-            cout << current->getName() << " (" << current->getAge() << " years, " << current->getColor() << ") ";
+            cout << current->getName() << " (" << current->getAge() << " years, " << current->getColor() << ") \n";
             current = current->next;
         }
         cout << endl;
@@ -165,10 +169,13 @@ public:
     {
         Goat *current = tail;
         if (!current)
+        {
+            cout << "List is empty.\n";
             return;
+        }
         while (current)
         {
-            cout << current->getName() << " (" << current->getAge() << " years, " << current->getColor() << ") ";
+            cout << current->getName() << " (" << current->getAge() << " years, " << current->getColor() << ") \n";
             current = current->prev;
         }
         cout << endl;
@@ -194,17 +201,18 @@ int main()
 
     for (int i = 0; i < size; i++)
     {
-        list.push_back(Goat()); // Create a new Goat with random attributes and add it to the list.
+        DoublyLinkedList::Goat g; //
+        list.push_back(g);        // Add the new Goat to the end of the list.
     }
-    cout << "List forward: ";
+    cout << "List forward: \n";
     list.print();
 
-    cout << "List backward: ";
+    cout << "List backward: \n";
     list.print_reverse();
 
     cout << "Deleting list, then trying to print.\n";
     list.~DoublyLinkedList();
-    cout << "List forward: ";
+    cout << "List forward: \n";
     list.print();
 
     return 0;
