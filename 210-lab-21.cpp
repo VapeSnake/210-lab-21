@@ -37,6 +37,10 @@ private:
             prev = p;
             next = nxt;
         }
+        // Getters for Goat attributes.
+        int getAge() const { return age; }
+        string getName() const { return name; }
+        string getColor() const { return color; }
     };
 
     Goat *head; // Head pointer
@@ -144,27 +148,27 @@ public:
         delete temp;
     }
 */
-    void print()
+    void print() // Traverses the list from head to tail, printing the data of each goat.
     {
         Goat *current = head;
         if (!current)
             return;
         while (current) // Traverses the list from head to tail, printing the data of each node.
         {
-            cout << current->name << " (" << current->age << " years, " << current->color << ") ";
+            cout << current->getName() << " (" << current->getAge() << " years, " << current->getColor() << ") ";
             current = current->next;
         }
         cout << endl;
     }
 
-    void print_reverse()
+    void print_reverse() // Traverses the list from tail to head, printing the data of each goat in reverse order.
     {
-        Node *current = tail;
+        Goat *current = tail;
         if (!current)
             return;
         while (current)
         {
-            cout << current->data << " ";
+            cout << current->getName() << " (" << current->getAge() << " years, " << current->getColor() << ") ";
             current = current->prev;
         }
         cout << endl;
@@ -174,7 +178,7 @@ public:
     {
         while (head)
         {
-            Node *temp = head;
+            Goat *temp = head;
             head = head->next;
             delete temp;
         }
@@ -188,8 +192,11 @@ int main()
     DoublyLinkedList list;
     int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 
-    for (int i = 0; i < size; ++i)
-        list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
+    for (int i = 0; i < size; i++)
+    {
+        Goat g; // Create a new Goat with random attributes using the default constructor.
+        list.push_back(g); // Add the new Goat to the end of the list.
+    }
     cout << "List forward: ";
     list.print();
 
