@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -17,6 +18,7 @@ private:
         string colors[15] {"White", "Black", "Brown", "Gray", "Spotted",
              "Striped", "Golden", "Cream", "Red", "Blue",
              "Green", "Yellow", "Purple", "Pink", "Orange"};
+        public: // Public members of the Goat class. Allows 
         Goat *prev; // Previous pointer
         Goat *next; // Next pointer
         Goat(Goat *p = nullptr, Goat *n = nullptr)
