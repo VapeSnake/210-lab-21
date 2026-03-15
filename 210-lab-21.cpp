@@ -194,8 +194,7 @@ int main()
 
     for (int i = 0; i < size; i++)
     {
-        Goat g; // Create a new Goat with random attributes using the default constructor.
-        list.push_back(g); // Add the new Goat to the end of the list.
+        list.push_back(Goat()); // Create a new Goat with random attributes and add it to the list.
     }
     cout << "List forward: ";
     list.print();
