@@ -75,8 +75,8 @@ public:
             head = newGoat;
         }
     }
-
-    void insert_after(Goat g, int position)
+/* [NOT USED IN PROGRAM]
+    void insert_after(Goat g, int position) // [NOT USED IN PROGRAM]
     {
         if (position < 0) // Validates the position input to ensure it's non-negative.
         {
@@ -111,12 +111,12 @@ public:
         temp->next = newGoat;
     }
 
-    void delete_node(Goat )
+    void delete_node(int value)
     {
         if (!head)
             return; // Empty list
 
-        Node *temp = head;
+        Goat *temp = head;
         while (temp && temp->data != value)
             temp = temp->next;
 
@@ -143,15 +143,15 @@ public:
 
         delete temp;
     }
-
+*/
     void print()
     {
-        Node *current = head;
+        Goat *current = head;
         if (!current)
             return;
-        while (current)
+        while (current) // Traverses the list from head to tail, printing the data of each node.
         {
-            cout << current->data << " ";
+            cout << current->name << " (" << current->age << " years, " << current->color << ") ";
             current = current->next;
         }
         cout << endl;
@@ -184,6 +184,7 @@ public:
 // Driver program
 int main()
 {
+    srand(time(0)); // Seed the random number generator with the current time.
     DoublyLinkedList list;
     int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 
