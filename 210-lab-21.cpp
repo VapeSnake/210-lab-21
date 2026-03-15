@@ -20,17 +20,25 @@ private:
         Goat *prev; // Previous pointer
         Goat *next; // Next pointer
         Goat(Goat *p = nullptr, Goat *n = nullptr)
-        {
+        { // Default constructor to initialize a Goat with random attributes.
             age = rand() % 20 + 1; // Random age between 1 and 20.
             name = names[rand() % 15]; // Random name from the list.
             color = colors[rand() % 15]; // Random color from the list.
             prev = p;
             next = n;
         }
+        Goat(int a, string n, string c, Goat *p = nullptr, Goat *nxt = nullptr)
+        {// Parameter constructor to initialize a Goat with specific attributes.
+            age = a;
+            name = n;
+            color = c;
+            prev = p;
+            next = nxt;
+        }
     };
 
-    Goat *head;
-    Goat *tail;
+    Goat *head; // Head pointer
+    Goat *tail; // Tail pointer
 
 public:
     // constructor
@@ -40,16 +48,16 @@ public:
         tail = nullptr;
     }
 
-    void push_back(int value)
+    void push_back(Goat g)
     {
-        Node *newNode = new Node(value);
+        Goat *newGoat = new Goat(g);
         if (!tail) // if there's no tail, the list is empty
-            head = tail = newNode;
+            head = tail = newGoat;
         else
         {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+            tail->next = newGoat;
+            newGoat->prev = tail;
+            tail = newGoat;
         }
     }
 
