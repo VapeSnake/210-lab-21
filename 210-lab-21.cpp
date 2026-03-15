@@ -44,12 +44,12 @@ private:
 
 public:
     // constructor
-    DoublyLinkedList()
+    DoublyLinkedList() // Initializes an empty list by setting head and tail to nullptr.
     {
         head = nullptr;
         tail = nullptr;
     }
-
+// Replacing all functions with versions that handle Goat objects instead of integers.
     void push_back(Goat g)
     {
         Goat *newGoat = new Goat(g);
@@ -63,55 +63,55 @@ public:
         }
     }
 
-    void push_front(int value)
+    void push_front(Goat g)
     {
-        Node *newNode = new Node(value);
+        Goat *newGoat = new Goat(g);
         if (!head) // if there's no head, the list is empty
-            head = tail = newNode;
+            head = tail = newGoat;
         else
         {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newGoat->next = head;
+            head->prev = newGoat;
+            head = newGoat;
         }
     }
 
-    void insert_after(int value, int position)
+    void insert_after(Goat g, int position)
     {
-        if (position < 0)
+        if (position < 0) // Validates the position input to ensure it's non-negative.
         {
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node *newNode = new Node(value);
+        Goat *newGoat = new Goat(g);
         if (!head)
         {
-            head = tail = newNode;
+            head = tail = newGoat;
             return;
         }
 
-        Node *temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        Goat *temp = head;
+        for (int i = 0; i < position && temp; ++i) // Traverses the list to find the node after which the new node will be inserted.
             temp = temp->next;
 
-        if (!temp)
+        if (!temp) // If position exceeds list size, insert at the end.
         {
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
+            delete newGoat;
             return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode; // Inserting at the end
-        temp->next = newNode;
+        newGoat->next = temp->next;
+        newGoat->prev = temp;
+        if (temp->next) // If there's a node after temp, update its prev pointer to the new node.
+            temp->next->prev = newGoat;
+        else // If temp is the tail, update the tail pointer to the new node.
+            tail = newGoat; // Inserting at the end.
+        temp->next = newGoat;
     }
 
-    void delete_node(int value)
+    void delete_node(Goat )
     {
         if (!head)
             return; // Empty list
